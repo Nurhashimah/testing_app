@@ -4,6 +4,6 @@ class HardWorker
 
   def perform(*args)
     # Do something
-    puts "Sidekiq worker running job #{args}"
+    puts "Sidekiq worker running job #{args} - yes"
   end
 end
