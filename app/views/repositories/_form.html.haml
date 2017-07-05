@@ -1,0 +1,21 @@
+.row
+  .col-md-offset-3     
+    .form-group
+      .col-sm-2.control-label
+        = f.label t 'repositories.title', for: :title
+      .col-md-5
+        = f.text_field :title, class: 'form-control'
+      
+    .form-group
+      .col-sm-2.control-label
+        = f.label t 'repositories.staff_id', for: :staff_id
+      .col-md-5
+        = f.select :staff_id, 1..20, class: 'selectpicker'
+      
+    .form-group
+      .col-sm-2.control-label
+        = f.label t 'repositories.data', for: :data
+      .col-md-5
+        = f.text_field :data, class: 'form-control'
+
+

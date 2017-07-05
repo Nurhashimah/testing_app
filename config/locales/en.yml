@@ -21,3 +21,12 @@
 
 en:
   hello: "Hello world"
+  create: Create
+  update: update
+  
+  repositories:
+    title: Title
+    staff_id: Staff
+    data: Data
+    new: New
+    edit: Edit
