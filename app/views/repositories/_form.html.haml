@@ -1,21 +1,51 @@
 .row
-  .col-md-offset-3     
+  .col-md-12.col-md-offset-1     
     .form-group
       .col-sm-2.control-label
         = f.label t 'repositories.title', for: :title
-      .col-md-5
+      .col-md-7
         = f.text_field :title, class: 'form-control'
       
     .form-group
       .col-sm-2.control-label
-        = f.label t 'repositories.staff_id', for: :staff_id
-      .col-md-5
-        = f.select :staff_id, 1..20, class: 'selectpicker'
-      
-    .form-group
-      .col-sm-2.control-label
         = f.label t 'repositories.data', for: :data
-      .col-md-5
+      .col-md-7
         = f.text_field :data, class: 'form-control'
 
+    .form-group
+      .col-sm-2.control-label
+        = f.label t 'repositories.staff_id', for: :staff_id
+      .col-md-7
+        - staff_list=[["Abu", 1], ["Aminah", 2]]
+        = f.select :staff_id, staff_list, include_blank: (t 'select'), class: 'selectpicker'
+ 
+    
+    - unless @repository.new_record?
+      .form-group
+        .col-sm-2.control-label
+          = f.label t 'repositories.uploaded', for: :uploaded
+        .col-md-5
+          = f.file_field :uploaded, class: 'form-control'
+          - unless @repository.uploaded.blank?
+            .small="Current file is : #{@repository.uploaded_file_name}"
 
+        
+:javascript
+
+  $("#repository_staff_id").click(function(){
+    var editform=document.getElementById('edit_form');
+    if (editform==null)
+    {
+      $("#new_form").submit();
+      alert('save NEW record when staff is selected!');
+    }
+  });
+  
+  $("#repository_uploaded").change(function(){
+    var editform=document.getElementById('edit_form');
+    if (editform!=null)
+    {
+      $("#edit_form").submit();
+      alert('now update EXISTING record when file for upload is selected!');
+    }
+  });

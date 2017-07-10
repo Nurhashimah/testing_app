@@ -7,6 +7,8 @@ gem "thin", "~> 1.6.3"
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 gem 'pg', '~> 0.17.1'
+#attach files
+gem 'paperclip', '~> 4.2.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -30,6 +32,7 @@ gem "bootstrap-datepicker-rails", "~> 1.3.0.1"
 gem "bootstrap-switch-rails", "~> 2.0.2"
 gem "modernizr-rails", "~> 2.6.2.3"
 gem "sidekiq", "~> 4.2.10"
+gem "sinatra"
 
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.

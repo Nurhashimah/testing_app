@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
   root 'repositories#index'
-  resources :repositories
+  resources :repositories do 
+    member do
+      get :download
+    end
+  end
 
   
   # The priority is based upon order of creation: first created -> highest priority.

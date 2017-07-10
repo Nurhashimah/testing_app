@@ -1,0 +1,23 @@
+- @repositories=Repository.order(created_at: :desc)
+%table.table-striped.table-hover.table-bordered
+  %thead
+    %tr
+      %th{width: '5%'} No
+      %th{width: '10%'}=t 'repositories.title'
+      %th{width: '10%'}=t 'repositories.staff_id'
+      %th{width: '10%'}=t 'repositories.data'
+      %th{width: '40%'}=t 'repositories.uploaded'
+      %th{width: '5%'} ID
+      %th{width: '10%'}
+      %th{width: '10%'}
+  %tbody
+    - @repositories.each_with_index do |repository, ind| 
+      %tr
+        %td=ind+1
+        %td=link_to repository.title, repository_path(repository)
+        %td=[["Abu", 1], ["Aminah", 2]].find_all{|disp, k| k==repository.staff_id}.map{|disp, k|disp}.first
+        %td=repository.data
+        %td=repository.uploaded_file_name
+        %td=repository.id
+        %td= link_to 'Edit', edit_repository_path(repository)
+        %td= link_to 'Destroy', repository, method: :delete, data: { confirm: 'Are you sure?' }

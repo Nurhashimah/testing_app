@@ -1,0 +1,36 @@
+.col-md-8
+  .col-md-offset-1
+    %h1=@repository.title.titleize
+    %hr
+    %p#notice= notice
+    %dl.dl-horizontal 
+
+      %dt Title:
+      %dd= @repository.title 
+
+      %dt Staff:
+      %dd= @repository.staff_id
+  
+      %dt Data:
+      %dd= @repository.data
+  
+      %dt= t 'repositories.uploaded'
+      %dd=@repository.uploaded.blank? ? "Not Exist" : @repository.uploaded_file_name
+
+      %dt= t 'helpers.links.links'
+      %dd
+        - unless @repository.uploaded.blank?
+          = link_to (t 'view')+' PDF', @repository.uploaded.url 
+          ||
+          = link_to (t 'view')+' Thumbnail', @repository.uploaded.url(:thumbnail)
+          ||
+          = link_to t('download'), download_repository_path(@repository)
+          ="(#{number_to_human_size(@repository.uploaded_file_size)})"
+        - else
+          Not applicable
+ 
+    
+    %hr
+    = link_to 'Edit', edit_repository_path(@repository)
+    |
+    = link_to 'Back', repositories_path
