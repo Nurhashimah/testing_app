@@ -3,9 +3,11 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
+Background process : use of Sidekiq
+
 Things you may want to cover:
 
-* Ruby version
+* Ruby version - 2.1.4, rails 4, Sidekiq - 4.2.10
 
 * System dependencies
 
