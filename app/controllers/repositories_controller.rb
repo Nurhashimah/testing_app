@@ -78,8 +78,12 @@ class RepositoriesController < ApplicationController
   
   #not working yet - last updated 10th July 2017
   def download
+    #@repository=Repository.find(params[:id])
     #url=/assets/uploads/1/original/BK-KKM-01-01_BORANG_PENILAIAN_KURSUS.pdf?1474870599
-    send_file("#{::Rails.root.to_s}/public#{@repository.uploaded.url.split("?").first}")
+    #send_file("#{::Rails.root.to_s}/public#{@repository.uploaded.url.split("?").first}")
+    @filename="#{::Rails.root.to_s}/public#{@repository.uploaded.url.split("?").first}"
+    #send_file(@filename ,  :type => 'application/pdf/docx/html/htm/doc', :disposition => 'attachment')
+    send_file(@filename ,:type => 'application/pdf', :disposition => 'attachment')
   end
 
   private

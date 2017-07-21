@@ -2,7 +2,22 @@
 .page-header
   .col-md-offset-1
     %h1 Listing Repositories
-    
+    %br
+    /https://stackoverflow.com/questions/1755665/get-names-of-all-files-from-a-folder-with-ruby
+    /= sync_imgs=Dir["public/assets/owncloud_sync/*"]
+    /= sync_imgs=Dir.glob("public/assets/owncloud_sync/*")
+    /= sync_imgs.first
+    /- sync_imgs=Dir["public/assets/owncloud_sync/*"].select{|f| File.file? f}
+    - sync_imgs=Dir.glob("public/assets/owncloud_sync/**/*").select{|f| File.file? f}
+    - sync_imgs_name=Dir["public/assets/owncloud_sync/*"].select{ |f| File.file? f }.map{ |f| File.basename f }
+    - sync_imgs_name+=Dir["public/assets/owncloud_sync/Documents/*"].select{ |f| File.file? f }.map{ |f| File.basename f }
+    %h3 Listing Sync Files from OwnCloud
+    %ol
+      - for sync_img in sync_imgs
+        %li=sync_img
+    %ol
+      - for sync_img_name in sync_imgs_name
+        %li=sync_img_name
 .row
   .col-md-10.col-md-offset-1
     #display_link_form
@@ -36,7 +51,9 @@
                   = link_to 'Edit', edit_repository_path(repository)
                   ||
                   = link_to 'Edit', edit_repository_path(repository), {id: 'edit_link', remote: true}
-                %td= link_to 'Destroy', repository, method: :delete, data: { confirm: 'Are you sure?' }
+                %td
+                  = link_to fa_icon("download"), download_repository_url(repository.id)
+                  = link_to 'Destroy', repository, method: :delete, data: { confirm: 'Are you sure?' }
           
     %br
     %hr
