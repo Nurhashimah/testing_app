@@ -22,3 +22,5 @@ db/migrate/bin/*
 public/assets/**
 
 /public/assets/owncloud_sync
+
+/config/database.yml
