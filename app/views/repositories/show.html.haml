@@ -9,8 +9,9 @@
       %dd= @repository.title 
 
       %dt Staff:
-      %dd= @repository.staff_id
-  
+      %dd
+        = @repository.staff_id
+        = @repository.render_staff
       %dt Data:
       %dd= @repository.data
   

@@ -15,4 +15,10 @@ class Repository < ActiveRecord::Base
     repo.save!
   end
   
+  def render_staff
+    Repository::STAFF_LIST.find_all{|disp, value|value==1}.map{|disp, value|disp}.first
+  end
+  
+  STAFF_LIST=[["Abu", 1], ["Aminah", 2]]
+  
 end
