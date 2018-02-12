@@ -7,6 +7,12 @@ Rails.application.routes.draw do
       get :download
     end
   end
+  
+  get '/redirect', to: 'repositories#redirect', as: 'redirect'
+  get '/callback', to: 'repositories#callback', as: 'callback'
+  get '/calendars', to: 'repositories#calendars', as: 'calendars'
+  get '/events/:calendar_id', to: 'repositories#events', as: 'events', calendar_id: /[^\/]+/
+  post '/events/:calendar_id', to: 'repositories#new_event', as: 'new_event', calendar_id: /[^\/]+/
 
   
   # The priority is based upon order of creation: first created -> highest priority.

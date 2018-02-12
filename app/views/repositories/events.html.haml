@@ -1,0 +1,24 @@
+%h3
+  Displaying Events for calendar : 
+  =params[:calendar_id]
+
+%br
+=form_tag new_event_url do
+  Summary
+  = text_field_tag :summary
+  /= text_field_tag :start
+  /= text_field_tag :end
+  = submit_tag 'Add event'
+%br
+
+%ul
+  - @event_list.items.each do |event| 
+    - googleapi_date=event.start.date
+    - if googleapi_date.nil?
+      %li="NOT a whole day event! : #{event.summary} (#{event.id}) #{googleapi_date}"
+    - else
+      /yyyy-mm-dd format for a whole day event
+      - adate=Date.new(googleapi_date[0,4].to_i, googleapi_date[5,2].to_i, googleapi_date[8,2].to_i)
+      %li="#{adate.try(:strftime, '%d %b %Y')} : #{event.summary} (#{event.id})"
+      
+    

@@ -54,6 +54,9 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# google calendar APIs
+gem 'google-api-client', require: 'google/apis/calendar_v3'
+
 group :production do
   gem 'rails_12factor', '0.0.2'
 end

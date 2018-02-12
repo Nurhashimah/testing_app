@@ -24,3 +24,4 @@ public/assets/**
 /public/assets/owncloud_sync
 
 /config/database.yml
+/config/secrets.yml
