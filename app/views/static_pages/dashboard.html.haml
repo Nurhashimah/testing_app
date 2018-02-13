@@ -1,0 +1,68 @@
+.col-md-10.col-md-offset-1
+  .page-header
+    %h2.text-center Dashboard
+
+.row
+  .col-md-3
+    .row
+      .panel.panel-danger
+        .panel-heading Notifications
+        .panel-body
+          notice 1
+          notice 2
+          notice 3
+          notice 4
+
+  .col-md-6{style: "padding-left:30px; padding-right:30px;"}
+    .row
+      .panel.panel-primary
+        .panel-heading Day Calendar
+        .panel-body
+          /= render "/events_listing/nurhashimah77@gmail.com"
+          %ul
+          - @event_list.items.each do |event| 
+            - googleapi_date=event.start.date
+            - if googleapi_date.nil?
+              %li="NOT a whole day event! : #{event.summary} (#{event.id}) #{googleapi_date}"
+            - else
+              /yyyy-mm-dd format for a whole day event
+              - adate=Date.new(googleapi_date[0,4].to_i, googleapi_date[5,2].to_i, googleapi_date[8,2].to_i)
+              %li="#{adate.try(:strftime, '%d %b %Y')} : #{event.summary.nil? ? "No summary" : event.summary} "
+              /"#{adate.try(:strftime, '%d %b %Y')} : #{event.summary.nil? ? "No summary" : event.summary} (#{event.id})"
+
+  .col-md-3
+    .row
+      .panel.panel-warning
+        .panel-heading Messages
+        .panel-body
+          message 1
+          message 2
+          message 3
+
+.row
+  .col-md-4.col-md-offset-3
+    .text-right=link_to "All Events", events_path
+    .panel.panel-default
+      .panel-heading New Event
+      .panel-body 
+        =form_tag additional_event_url do
+          Summary
+          = text_field_tag :summary
+          = text_field_tag :start, nil, placeholder: "dd-mm-yyyy"
+          /hh:mm"
+          /= text_field_tag :start, nil, class: "datetimepicker"
+          /= text_field_tag :end
+          = submit_tag 'Add event'
+
+/ :javascript
+/   alert("cc");
+/   
+/   $('.date_picker').datetimepicker({
+/     timepicker:false,
+/     format:'Y-m-d',
+/     formatDate:'Y-m-d'
+/   });
+/   
+/   $(document).ready(function(e){
+/     alert("aa");
+/   });

@@ -10,8 +10,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="col-md-offset-1">
+<%= render 'layouts/menu'%>
+</div>
 
+<div style="padding-left: 30px; padding-right: 30px;">
 <%= yield %>
+</div>
 
 </body>
 </html>

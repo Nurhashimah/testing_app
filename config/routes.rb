@@ -1,18 +1,43 @@
 Rails.application.routes.draw do
+#   get 'events/index'
+# 
+#   get 'events/new'
+# 
+#   get 'events/edit'
+# 
+#   get 'events/show'
+# 
+#   get 'static_pages/home'
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
-  root 'repositories#index'
+#   #root 'repositories#index'
+  root 'static_pages#home'
   resources :repositories do 
     member do
       get :download
     end
   end
   
-  get '/redirect', to: 'repositories#redirect', as: 'redirect'
-  get '/callback', to: 'repositories#callback', as: 'callback'
-  get '/calendars', to: 'repositories#calendars', as: 'calendars'
-  get '/events/:calendar_id', to: 'repositories#events', as: 'events', calendar_id: /[^\/]+/
-  post '/events/:calendar_id', to: 'repositories#new_event', as: 'new_event', calendar_id: /[^\/]+/
+  resources :events
+  
+  get '/redirect', to: 'static_pages#redirect', as: 'redirect'
+  get '/callback', to: 'static_pages#callback', as: 'callback'
+  get '/calendars', to: 'static_pages#calendars', as: 'calendars'
+  get '/dashboard/:calendar_id', to: 'static_pages#dashboard', as: 'listing', calendar_id: /[^\/]+/
+  post '/dashboard/:calendar_id', to: 'static_pages#new_event_dash', as: 'additional_event', calendar_id: /[^\/]+/
+  
+#   get '/redirect', to: 'events#redirect', as: 'redirect'
+#   get '/callback', to: 'events#callback', as: 'callback'
+#   get '/calendars', to: 'events#calendars', as: 'calendars'
+#   get '/events_listing/:calendar_id', to: 'events#listing', as: 'listing', calendar_id: /[^\/]+/
+#   post '/events_listing/:calendar_id', to: 'events#new_event', as: 'additional_event', calendar_id: /[^\/]+/
+  
+#   get '/redirect', to: 'repositories#redirect', as: 'redirect'
+#   get '/callback', to: 'repositories#callback', as: 'callback'
+#   get '/calendars', to: 'repositories#calendars', as: 'calendars'
+# #   get '/events/:calendar_id', to: 'repositories#events', as: 'events', calendar_id: /[^\/]+/
+# #   post '/events/:calendar_id', to: 'repositories#new_event', as: 'new_event', calendar_id: /[^\/]+/
 
   
   # The priority is based upon order of creation: first created -> highest priority.

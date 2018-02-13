@@ -1,0 +1,69 @@
+.col-md-10.col-md-offset-1
+  .page-header
+    %h2.text-center 
+      Displaying Events for calendar : 
+      =params[:calendar_id]
+
+.row
+  .col-md-4.col-md-offset-1
+    .panel.panel-default
+      .panel-heading New Event
+      .panel-body 
+        =form_tag new_event_url do
+          Summary
+          = text_field_tag :summary
+          /= text_field_tag :start
+          /= text_field_tag :end
+          = submit_tag 'Add event'
+
+.row
+  .col-md-8.col-md-offset-1
+    .panel.panel-info
+      .panel-heading Test calendar here
+      .panel-body
+        /= render "/events_listing/nurhashimah77@gmail.com"
+        %ul
+        - @event_list.items.each do |event| 
+          - googleapi_date=event.start.date
+          - if googleapi_date.nil?
+            %li="NOT a whole day event! : #{event.summary} (#{event.id}) #{googleapi_date}"
+          - else
+            /yyyy-mm-dd format for a whole day event
+            - adate=Date.new(googleapi_date[0,4].to_i, googleapi_date[5,2].to_i, googleapi_date[8,2].to_i)
+            %li="#{adate.try(:strftime, '%d %b %Y')} : #{event.summary} (#{event.id})"
+    
+
+
+/ 
+/ 
+/ %h3
+/   Displaying Events for calendar : 
+/   =params[:calendar_id]
+/ 
+/ %br
+/ .col-md-4.col-md-offset-1
+/   .panel.panel-default
+/     .panel-heading New Event
+/     .panel-body 
+/       =form_tag new_event_url do
+/         Summary
+/         = text_field_tag :summary
+/         /= text_field_tag :start
+/         /= text_field_tag :end
+/         = submit_tag 'Add event'
+/ %br
+/ .col-md-6.col-md-offset-3
+/   .panel.panel-default
+/     .panel-heading Day Calendar
+/     .panel-body
+/       %ul
+/         - @event_list.items.each do |event| 
+/           - googleapi_date=event.start.date
+/           - if googleapi_date.nil?
+/             %li="NOT a whole day event! : #{event.summary} (#{event.id}) #{googleapi_date}"
+/           - else
+/             /yyyy-mm-dd format for a whole day event
+/             - adate=Date.new(googleapi_date[0,4].to_i, googleapi_date[5,2].to_i, googleapi_date[8,2].to_i)
+/             %li="#{adate.try(:strftime, '%d %b %Y')} : #{event.summary} (#{event.id})"
+      
+    

@@ -1,8 +1,10 @@
 - model_class = Repository
-.page-header
-  .col-md-offset-1
-    %h1 Listing Repositories
-    %br
+.col-md-10.col-md-offset-1
+  .page-header
+    %h2.text-center Repositories Listing
+    
+.row 
+  .col-md-8.col-md-offset-2.small
     /https://stackoverflow.com/questions/1755665/get-names-of-all-files-from-a-folder-with-ruby
     /= sync_imgs=Dir["public/assets/owncloud_sync/*"]
     /= sync_imgs=Dir.glob("public/assets/owncloud_sync/*")
@@ -18,8 +20,9 @@
     %ol
       - for sync_img_name in sync_imgs_name
         %li=sync_img_name
+
 .row
-  .col-md-10.col-md-offset-1
+  .col-md-9.col-md-offset-1
     #display_link_form
       = link_to 'New Repository', new_repository_path
       ||

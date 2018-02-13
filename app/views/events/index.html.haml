@@ -1,0 +1,12 @@
+.col-md-10.col-md-offset-1
+  .page-header
+    %h2.text-center Events Listing
+
+.row
+  .col-md-6.col-md-offset-1
+    %p
+      Event List :
+      %ol
+      - @events.each do |event|
+        %li="#{event.eventname} - (#{event.start_at.strftime('%d %b %Y')} - #{event.end_at.strftime('%d %b %Y')})"
+
