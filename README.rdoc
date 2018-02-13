@@ -23,7 +23,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* Contains sample on how to Integrate Google API Calendar into Rails application. (ref : https://readysteadycode.com/howto-integrate-google-calendar-with-rails)
 
 
 Please feel free to use a different markup language if you do not plan to run
