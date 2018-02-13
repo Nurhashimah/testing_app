@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  include ApplicationHelper
+  
   def home
   end
   
@@ -12,7 +14,11 @@ class StaticPagesController < ApplicationController
   
   def redirect
     client = Signet::OAuth2::Client.new(client_options)
-    redirect_to client.authorization_uri.to_s
+    if internet_connection? 
+      redirect_to client.authorization_uri.to_s
+    else
+      redirect_to root_path
+    end
   end
   
   def callback
@@ -39,13 +45,17 @@ class StaticPagesController < ApplicationController
   end
   
   def dashboard #listing#events
-    client = Signet::OAuth2::Client.new(client_options)
-    client.update!(session[:authorization])
-    
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
+    if internet_connection? 
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+      
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
 
-    @event_list = service.list_events(params[:calendar_id])
+      @event_list = service.list_events(params[:calendar_id])
+    else
+      @events = Event.order(start_at: :desc)
+    end
   end
   
   def new_event_dash#new_event

@@ -1,7 +1,10 @@
-%h3 Available / Shared Calendars
+.col-md-10.col-md-offset-1
+  .page-header
+    %h2.text-center Available / Shared Calendars
 
-.col-md-6.col-md-offset-1
-  %ul
-    - @calendar_list.items.each do |calendar| 
-      %li= link_to "#{calendar.summary} (#{calendar.id})", "/dashboard/#{calendar.id}"
+.row
+  .col-md-6.col-md-offset-1
+    %ul
+      - @calendar_list.items.each do |calendar| 
+        %li= link_to "#{calendar.summary} (#{calendar.id})", "/dashboard/#{calendar.id}"
  

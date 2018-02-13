@@ -57,6 +57,9 @@ gem 'spring',        group: :development
 # google calendar APIs
 gem 'google-api-client', require: 'google/apis/calendar_v3'
 
+# Check internet connection -> refer ApplicationHelper
+gem 'net-ping'
+
 group :production do
   gem 'rails_12factor', '0.0.2'
 end

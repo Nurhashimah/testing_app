@@ -4,16 +4,20 @@
 
 .row
   .col-md-6.col-md-offset-1
+    %h4{style: 'color: blue; font-weight: bold;'}This is homepage of Testing App. This application contains :
     %p
-      This is homepage of Testing App. This application contains :
       %ol
-        %li Repositories with JS and traditional upload function using Paperclip gem.
-        %li Integrated google calendar for events using AuthOmi.....  
+        %li Repositories with (JS and traditional) upload function using Paperclip gem.
+        %li Integrated google calendar for events Google API Client.
+        %li Event listing in Dashboard shall be rendered according to internet connection existance :
+        %ul
+          %li With internet connection : events retrieved from Google Calendar + New Event form.
+          %li Without internet connection : events retrieved from local database.
+          
+  .col-md-5
+    =image_tag("naik-tangga.jpeg")
+           
 .row
   .col-md-6.col-md-offset-1
-    .panel.panel-info
-      .panel-heading Test calendar here
-      .panel-body
-        /= render "/events_listing/nurhashimah77@gmail.com"
-        = render "events/display"
+    = render "events/display"
     

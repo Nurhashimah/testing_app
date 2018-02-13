@@ -115,6 +115,7 @@ GEM
     modernizr-rails (2.6.2.3)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    net-ping (2.0.2)
     orm_adapter (0.5.0)
     os (0.9.6)
     paperclip (4.2.1)
@@ -225,6 +226,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 4.1.1)
   kaminari (~> 0.16.1)
   modernizr-rails (~> 2.6.2.3)
+  net-ping
   paperclip (~> 4.2.0)
   pg (~> 0.17.1)
   rails (= 4.1.9)
