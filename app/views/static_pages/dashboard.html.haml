@@ -1,6 +1,8 @@
 .col-md-10.col-md-offset-1
   .page-header
     %h2.text-center Dashboard
+    %h4.text-center
+      %i{style: 'color: red;'}= "No internet connection. Accessing offline events records."
 
 .row
   .col-md-3
@@ -15,11 +17,10 @@
 
   .col-md-6{style: "padding-left:30px; padding-right:30px;"}
     .row
-      .panel.panel-primary
-        .panel-heading Day Calendar
-        .panel-body
-          /= render "/events_listing/nurhashimah77@gmail.com"
-          - if internet_connection?
+      - if internet_connection?
+        .panel.panel-primary
+          .panel-heading Day Calendar
+          .panel-body
             %ul
               - @event_list.items.each do |event| 
                 - googleapi_date=event.start.date
@@ -30,13 +31,57 @@
                   - adate=Date.new(googleapi_date[0,4].to_i, googleapi_date[5,2].to_i, googleapi_date[8,2].to_i)
                   %li="#{adate.try(:strftime, '%d %b %Y')} : #{event.summary.nil? ? "No summary" : event.summary} "
                   /"#{adate.try(:strftime, '%d %b %Y')} : #{event.summary.nil? ? "No summary" : event.summary} (#{event.id})"
-          - else
-            %h4.text-center
-              %i{style: 'color: red;'}= "No internet connection. Accessing offline events records."
-            %ul
-              - @events.each do |event|
-                %li="#{event.start_at.try(:strftime, '%d %b %Y')} : #{event.eventname}"
-              
+      - else
+        /below-WORKING, enable to check
+        /.panel.panel-primary
+        /  .panel-heading Day Calendar
+        /  .panel-body
+        /    %h4.text-center
+        /      %i{style: 'color: red;'}= "No internet connection. Accessing offline events records."
+        /    %ul
+        /      - @events.each do |event|
+        /        %li="#{event.start_at.try(:strftime, '%d %b %Y')} : #{event.eventname}"
+                
+      - if internet_connection?
+        = month_calendar do |date| 
+          = date.day
+      - else
+        /.day huhu
+        /%h4.text-center
+        /  %i{style: 'color: red;'}= "No internet connection. Accessing offline events records."
+        .panel.panel-primary
+          .panel-heading Day Calendar
+          .panel-body
+            - startdate=(Date.today.in_time_zone("Kuala Lumpur")).strftime("%Y-%m-%d")
+            = calendar number_of_days: 1, start_date_param: startdate, events: @events do |date, events|
+              %h2= date.day
+              %ol
+                - events.each do |event|
+                  %li="#{event.start_time.strftime('%H:%M')}-#{event.end_time.strftime('%H:%M')} | #{event.eventname} (#{event.try(:location)})"
+                    
+        .panel.panel-primary
+          .panel-heading Monthly Calendar
+          .panel-body
+            = month_calendar events: @events do |date, events| 
+              = date.day
+              - events.each do |event|
+                .small= event.eventname[0,5]
+
+        .panel.panel-primary
+          .panel-heading Weekly Calendar
+          .panel-body
+            = week_calendar number_of_weeks: 1, events: @events do |date, events| 
+              = date.day
+              - events.each do |event|
+                .small= event.eventname[0,5]
+           
+        .panel.panel-primary
+          .panel-heading 4 Days Calendar
+          .panel-body
+            = calendar number_of_days: 4, events: @events do |date, events|
+              = date.day
+              - events.each do |event|
+                .small= event.eventname[0,5]
 
   .col-md-3
     .row

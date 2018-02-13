@@ -60,6 +60,9 @@ gem 'google-api-client', require: 'google/apis/calendar_v3'
 # Check internet connection -> refer ApplicationHelper
 gem 'net-ping'
 
+# display events from google calendar in day view, a 4 day agenda, a week view, a month view, or a 6 week calendar.
+gem "simple_calendar", "~> 2.0"
+
 group :production do
   gem 'rails_12factor', '0.0.2'
 end
