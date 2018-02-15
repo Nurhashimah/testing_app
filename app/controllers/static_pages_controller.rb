@@ -53,6 +53,7 @@ class StaticPagesController < ApplicationController
       service.authorization = client
 
       @event_list = service.list_events(params[:calendar_id])
+      @events = Event.order(start_at: :desc)
     else
       @events = Event.order(start_at: :desc)
     end
@@ -67,20 +68,54 @@ class StaticPagesController < ApplicationController
 
     #today = Date.today
     dt=params[:start]
-    today=Date.new(dt[6,4].to_i, dt[3,2].to_i, dt[0,2].to_i)
+    dt2=params[:end]
+    fullday_date=Date.new(dt[6,4].to_i, dt[3,2].to_i, dt[0,2].to_i)
+    non_fullday_start_datetime=DateTime.new(dt[6,4].to_i, dt[3,2].to_i, dt[0,2].to_i, dt[11,2].to_i, dt[14,2].to_i, 0, "+8")
+    unless dt2.blank?
+      non_fullday_end_datetime=DateTime.new(dt2[6,4].to_i, dt2[3,2].to_i, dt2[0,2].to_i, dt2[11,2].to_i, dt2[14,2].to_i, 0, "+8")  #Y,mm,dd,H,M,S,"+8"
+    end
     
-    #today=DateTime.new(dt[6,4].to_i, dt[3,2].to_i, dt[0,2].to_i, dt[14,2].to_i, dt[11,2].to_i, 0, "+8")  #DateTime.new(2018,02,13,17,56,20,"+8")
+#     #today=Date.new(dt[6,4].to_i, dt[3,2].to_i, dt[0,2].to_i)
+#     #today=DateTime.new(dt[6,4].to_i, dt[3,2].to_i, dt[0,2].to_i, dt[14,2].to_i, dt[11,2].to_i, 0, "+8")  #DateTime.new(2018,02,13,17,56,20,"+8")
 
-    event = Google::Apis::CalendarV3::Event.new({
-      start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
-      end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1),
+#     event = Google::Apis::CalendarV3::Event.new({
+#       #start: Google::Apis::CalendarV3::EventDateTime.new(date: fullday_date),
+#       #end: Google::Apis::CalendarV3::EventDateTime.new(date: fullday_date + 1),
+#       start: {date_time: DateTime.now},
+#       end: {date_time: DateTime.now+1.hours},
+#       summary: params[:summary], #'New event!'
+#     })
+
+    unless dt2.blank?
+      event = Google::Apis::CalendarV3::Event.new({
+	start: Google::Apis::CalendarV3::EventDateTime.new(date_time: non_fullday_start_datetime),
+        end: Google::Apis::CalendarV3::EventDateTime.new(date_time: non_fullday_end_datetime),
+	summary: params[:summary], 
+      })
+    else
+      event = Google::Apis::CalendarV3::Event.new({
+      start: Google::Apis::CalendarV3::EventDateTime.new(date: fullday_date),
+      end: Google::Apis::CalendarV3::EventDateTime.new(date: fullday_date + 1),
       summary: params[:summary], #'New event!'
     })
+    end
+      
+      
 
     service.insert_event(params[:calendar_id], event)
     
+    unless dt2.blank?
+      startat=non_fullday_start_datetime
+      endat=non_fullday_end_datetime
+    else
+      startat=DateTime.new(dt[6,4].to_i, dt[3,2].to_i, dt[0,2].to_i,0,0,0,"+8")
+      endat=startat
+    end
+    
     #add same event to Event table in local DB
-    a=Event.create(eventname: params[:summary], location: "dewan a", start_at: params[:start], end_at: Date.today.tomorrow)
+    #a=Event.create(eventname: params[:summary], location: "dewan a", start_at: params[:start], end_at: Date.today.tomorrow)
+    #a=Event.create(eventname: params[:summary], location: "dewan a", start_at: DateTime.now, end_at: DateTime.now+1.hours)
+    a=Event.create(eventname: params[:summary], location: "dewan a", start_at: startat, end_at: endat)
 
     #redirect_to events_url(calendar_id: params[:calendar_id])
     redirect_to "/dashboard/#{params[:calendar_id]}"

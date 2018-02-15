@@ -1,0 +1,5 @@
+= date.day
+- events.each do |event|
+  .small
+    = event.eventname
+    = event.start_time==event.end_time ? "*" : ""

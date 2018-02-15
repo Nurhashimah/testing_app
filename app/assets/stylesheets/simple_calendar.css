@@ -1,9 +1,28 @@
+/*w internet conn*/
+.calendar-heading table {width: 92%; margin-left: 4%; margin-right: 4%; font-weight: normal; color: grey;}
+.calendar-heading td.dayno {width: 6%; font-size: 30px; }
+.calendar-heading td.monthname { width: 90%; font-size: 14px; vertical-align: bottom; padding-bottom: 7px;}
+.calendar-heading td.dayname {width: 4%; font-size: 14px; vertical-align: bottom; padding-bottom: 7px; text-align: right;}
+
+/**w/o internet conn*/
+.calendar-heading { font-weight: bold; font-size: 15px;}
+.calendar-heading a { font-size: 19px;}
+
 .today {
   color: green;
 }
-.today h2{padding-left: 20px;  }
-.day ol li { font-size: 14px;  }
+.day h2 {padding-left: 20px;}
+.day {font-size: 14px;}
+.day th {background-color: #eceff1;}
+.day td {background-color: #fafafa;}
+.day td.cnt {width: 6%}
+.day td.time {width: 20%}
+.day td.name {width: 54%}
+.day td.location{width: 20%}
+.day table {width: 92%; margin-left: 4%; margin-right: 4%; }
 
+/*others*/
+.text-red {color:red;}
 
 /* .start_date {font-weight: bold;} */
 
